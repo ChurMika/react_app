@@ -2,10 +2,10 @@ import logo from './logo.svg';
 import './App.css';
 
 function Message(props) {
-  return <p> Message - {props.text}</p>
+  return <p className="Message"> Message - {props.text}</p>
 }
 
-function App() {
+function App(props) {
   return (
     <div className="App">
       <header className="App-header">
@@ -13,7 +13,7 @@ function App() {
           Hello World
         </p>
       </header>
-      <Message text={"This is my message!"}/>
+      <Message text={"This is my message!"} />
     </div>
   );
 }
