@@ -16,6 +16,7 @@ function Message(props) {
 Message.propTypes = {
   nick: PropTypes.string,
   author: PropTypes.string.isRequired,
+  
   text: PropTypes.string.isRequired,
 }
 Message.defaultProps = {}
