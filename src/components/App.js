@@ -1,29 +1,8 @@
 import React from 'react'
 import TextField from '@material-ui/core/TextField'
 import { useRef, useEffect } from 'react'
-import PropTypes from 'prop-types'
-
-function Message(props) {
-  const { nick = '1234id' } = props
-
-  return (
-      <p id={nick}>
-          {props.author}: {props.text}
-      </p>
-  )
-}
-
-Message.propTypes = {
-  nick: PropTypes.string,
-  author: PropTypes.string.isRequired,
-  text: PropTypes.string.isRequired,
-}
-Message.defaultProps = {}
-
-const AUTHORS = {
-  ME: 'Me',
-  BOT: 'Bot',
-}
+import { AUTHORS } from './constants'
+import Message from './message'
 
 function usePrevious(value) {
   const ref = useRef()
@@ -40,6 +19,12 @@ function App() {
     const timer = React.useRef(null)
 
     const prevMessageList = usePrevious(messageList)
+
+    const inputRef = React.useRef(null);
+
+    React.useEffect(()=>{
+        inputRef.current.focus();
+    }, []);
 
     React.useEffect(() => {
         if (
@@ -79,6 +64,13 @@ function App() {
 
     return (
         <div className="app">
+            <div>
+                <ul>
+                    <li>Chat 1</li>
+                    <li>Chat 2</li>
+                    <li>Chat 3</li>
+                </ul>
+            </div>
             <div className="bordered">
                 {messageList.map((message, index) => (
                     <Message
@@ -93,13 +85,14 @@ function App() {
                 <TextField
                     fullWidth
                     required
-                    autoFocus
+                    autoFocus={true}
                     className="child__text-field bordered"
                     variant="outlined"
                     label="Сообщение"
                     placeholder="Введите сообщение"
                     value={inputValue}
                     onChange={handleMessageChange}
+                    ref={inputRef}
                 />
                 <button>Отправить</button>
             </form>
