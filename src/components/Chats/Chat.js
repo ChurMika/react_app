@@ -1,20 +1,24 @@
 import React from 'react'
-import { useHistory, useLocation, useParams, useRouteMatch } from 'react-router'
+import { useParams } from 'react-router'
 
 const Chat = (props) => {
-    const { chatId } = useParams()
-    const match = useRouteMatch('/chats/:chatId')
-    const history = useHistory()
-    const location = useLocation()
+    const { chatId } = useParams() 
 
-    console.log({ match, history, location })
+    const [chats, setChats] = React.useState([
+        { id: 'id1', name: 'Чат 1' },
+        { id: 'id2', name: 'Чат 2' },
+        { id: 'id3', name: 'Чат 3' },
+    ])
 
-    const handleGoBack = () => history.goBack()
+    /*for (let i=0; i<=chats.length; i++) {
+        if (chatId === chats[i].id) {
+            console.log(chatId);
+        }
+    }*/
 
     return (
         <div>
-            <p>Certain chat page, {chatId}</p>
-            <button onClick={handleGoBack}>Go Back</button>
+            <p>Chat page {chatId}</p>
         </div>
     )
 }

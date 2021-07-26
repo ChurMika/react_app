@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'
 import '../App.css'
 import App from '../App'
 import Chat from '../Chats/Chat'
+import Profile from '../Profile/Profile'
+import Chats from '../Chats/Chats'
 
 export default function Router() {
     return (
@@ -17,13 +19,11 @@ export default function Router() {
             <Switch>
                 <Route path="/" exact component={App} />
 
-                <Route exact path="/chats" render={() => <p>Chats page</p>} />
+                <Route exact path="/chats" render={() => <Chats />} />
 
                 <Route path="/chats/:chatId" render={() => <Chat />} />
 
-                <Route path="/profile">
-                    <p>Profile page</p>
-                </Route>
+                <Route path="/profile" render={() => <Profile />} />
 
                 <Route>
                     <p>404: not found</p>
