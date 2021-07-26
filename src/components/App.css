@@ -76,6 +76,14 @@ a:hover {
   opacity: 0.5;
 }
 
+.backBtn {
+  border: 1px solid black;
+  height: 25px;
+  width: 100px;
+  padding: 0;
+  font-size: 12px;
+}
+
 /* <-- Styles for MaterialUI TextField --> */
 .child__text-field input:valid + fieldset,
 .child__text-field input:valid:hover + fieldset {

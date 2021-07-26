@@ -51,7 +51,6 @@ const Chat = (props) => {
                             author={message.author}
                             render={({ className }) => (
                                 <span className={className}>
-                                    {/*{Date.now().toLocaleString()}*/}
                                 </span>
                             )}
                         />
