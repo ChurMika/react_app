@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import '../App.css'
 import App from '../App'
 import Chat from '../Chats/Chat'
-import Profile from '../Profile/Profile'
+import Profile from '../store/Profile/Profile'
 import Chats from '../Chats/Chats'
 
 export default function Router() {
