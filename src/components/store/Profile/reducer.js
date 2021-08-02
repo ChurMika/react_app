@@ -1,17 +1,12 @@
-import { SHOW_NAME, CHANGE_NAME } from './actions'
+import { CHANGE_NAME } from './actions'
 
 const initialState = {
-    showName: false,
-    name: 'NoName'
+    name: 'Marina',
+    age: 27
 }
 
 export default function reducer(state = initialState, action) {
     switch (action.type) {
-        case SHOW_NAME:
-            return {
-                ...state,
-                showName: !state.showName
-            }
         case CHANGE_NAME: {
             return {
                 ...state,

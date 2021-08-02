@@ -1,11 +1,13 @@
 import React from 'react'
 import Message from '../Message/Message'
 import Input from '../Input/Input'
-import { AUTHORS } from '../Constants'
 import usePrevious from '../../hooks/usePrevious'
+import { useSelector } from 'react-redux'
 
 const Chat = (props) => {
     const [messageList, setMessageList] = React.useState([])
+    const profileName = useSelector(state => state.profile.name)
+    const BOT = 'Bot'
 
     const timer = React.useRef(null)
 
@@ -14,13 +16,13 @@ const Chat = (props) => {
     React.useEffect(() => {
         if (
             prevMessageList?.length < messageList.length &&
-            messageList[messageList.length - 1].author !== AUTHORS.BOT
+            messageList[messageList.length - 1].author !== BOT
         ) {
             timer.current = setTimeout(
                 () =>
                     setMessageList((currentMessageList) => [
                         ...currentMessageList,
-                        { author: AUTHORS.BOT, text: 'Привет' },
+                        { author: BOT, text: 'Привет' },
                     ]),
                 1500
             )
@@ -36,7 +38,7 @@ const Chat = (props) => {
     const handleMessageSubmit = (newMessageText) => {
         setMessageList((currentMessageList) => [
             ...currentMessageList,
-            { author: AUTHORS.ME, text: newMessageText },
+            { author: profileName, text: newMessageText },
         ])
     }
 
