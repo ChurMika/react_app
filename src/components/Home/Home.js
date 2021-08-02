@@ -35,7 +35,7 @@ const Home = (props) => {
                         >
                             {chat.nameChat}
                         </ListItem>
-                        <button onSubmit={deleteThisChat}>Delete Chat</button>
+                        
                     </Link>
                 ))}
             </List>
@@ -45,7 +45,8 @@ const Home = (props) => {
                 placeholder="Введите имя чата"
                 onSubmit={addNewChat}
             />
-                
+            
+            <button onSubmit={deleteThisChat}>Delete Chat</button>
         </div>
     )
 }

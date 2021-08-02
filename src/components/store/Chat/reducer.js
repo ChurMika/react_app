@@ -16,7 +16,7 @@ export default function chatReducer(state = initialState, action) {
                 chatList: [
                     ...state.chatList,
                     {
-                        id: `id${state.chatList.length}`,
+                        id: `id${state.chatList.length+1}`,
                         nameChat: action.payload.name,
                     },
                 ],

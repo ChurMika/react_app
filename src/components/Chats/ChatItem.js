@@ -1,60 +1,36 @@
 import React from 'react'
 import Message from '../Message/Message'
 import Input from '../Input/Input'
-import usePrevious from '../../hooks/usePrevious'
-import { useSelector } from 'react-redux'
+import { AUTHORS } from '../Constants'
+import { useDispatch, useSelector } from 'react-redux'
+import { addMessage } from '../store/Message/actions'
+import { useParams } from 'react-router'
 
 const Chat = (props) => {
-    const [messageList, setMessageList] = React.useState([])
-    const profileName = useSelector(state => state.profile.name)
-    const BOT = 'Bot'
+    const { chatId } = useParams()
 
-    const timer = React.useRef(null)
-
-    const prevMessageList = usePrevious(messageList)
-
-    React.useEffect(() => {
-        if (
-            prevMessageList?.length < messageList.length &&
-            messageList[messageList.length - 1].author !== BOT
-        ) {
-            timer.current = setTimeout(
-                () =>
-                    setMessageList((currentMessageList) => [
-                        ...currentMessageList,
-                        { author: BOT, text: 'Привет' },
-                    ]),
-                1500
-            )
-        }
-    }, [messageList, prevMessageList])
-
-    React.useEffect(() => {
-        return () => {
-            clearTimeout(timer.current)
-        }
-    }, [])
+    const messages = useSelector(state => state.message.messageList)
+    const dispatch = useDispatch()
 
     const handleMessageSubmit = (newMessageText) => {
-        setMessageList((currentMessageList) => [
-            ...currentMessageList,
-            { author: profileName, text: newMessageText },
-        ])
+        dispatch(
+            addMessage(chatId, {
+                id: `message${chatId}`,
+                author: AUTHORS.ME,
+                text: newMessageText,
+            })
+        )
     }
 
     return (
         <div className="chat">
-            {messageList.length ? (
+            {messages.length ? (
                 <div className="borderedChat">
-                    {messageList.map((message, index) => (
+                    {messages.map((message) => (
                         <Message
-                            key={index}
+                            key={message.id}
                             text={message.text}
                             author={message.author}
-                            render={({ className }) => (
-                                <span className={className}>
-                                </span>
-                            )}
                         />
                     ))}
                 </div>
