@@ -1,27 +1,20 @@
+import { AUTHORS } from '../../Constants'
 import { ADD_MESSAGE } from './actions'
 
 const initialState = {
-    messageList: {}
-};
+}
 
-export default function messageReducer(state = initialState, action) {
+export default function messagesReducer(state = initialState, action) {
     switch (action.type) {
         case ADD_MESSAGE: {
-            const currentList = state.messageList[action.chatId] || []
             return {
                 ...state,
-                messageList: {
-                  ...state.messageList,
-                  [action.chatId]: [
-                    ...currentList,
-                    {
-                      ...action.message,
-                    },
-                  ],
-                },
-              };
+                [action.payload.chatId]: [
+                    ...(state[action.payload.chatId] || []),
+                    action.payload.message,
+                ],
             }
-        
+        }
         default:
             return state
     }

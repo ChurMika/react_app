@@ -1,27 +1,50 @@
 import React from 'react'
-import { useParams } from 'react-router'
-import { Redirect } from 'react-router'
-import ChatItem from './ChatItem'
-import { useSelector } from 'react-redux'
+import { Redirect, useParams } from 'react-router'
+import Message from '../Message/Message'
+import Input from '../Input/Input'
+import { AUTHORS } from '../Constants'
+import { useDispatch, useSelector } from 'react-redux'
+import { addMessage } from '../store/Message/actions'
+import { useIsChatExists } from '../../hooks/useIsChatExists'
+import { sendMessageToBot } from '../store/Message/actions'
 
 const Chat = (props) => {
-    const chats = useSelector((state) => state.chats.chatList)
-    
-    const { chatId } = useParams() 
+    const { chatId } = useParams()
 
-    const [currentChat] = React.useState(chats[0])
+    const messageList = useSelector((state) => state.messages[chatId] || [])
+    const dispatch = useDispatch()
 
-    if (!chatId) {
-        return <Redirect to="/" />
+    const handleMessageSubmit = (newMessageText) => {
+        dispatch(
+            sendMessageToBot(chatId, {
+                id: `message${Date.now()}`,
+                author: AUTHORS.ME,
+                text: newMessageText,
+            })
+        )
+    }
+
+    const isChatExists = useIsChatExists({ chatId })
+
+    if (!isChatExists) {
+        return <Redirect to="/chats" />
     }
 
     return (
-        <div>
-            <p>Chat page {chatId}</p>
+        <div className="chat">
+            {messageList.length ? (
+                <div className="bordered">
+                    {messageList.map((message) => (
+                        <Message
+                            key={message.id}
+                            text={message.text}
+                            author={message.author}
+                        />
+                    ))}
+                </div>
+            ) : null}
 
-            <div className="app__main">
-                <ChatItem id={currentChat.id} />
-            </div>
+            <Input onSubmit={handleMessageSubmit} />
         </div>
     )
 }
