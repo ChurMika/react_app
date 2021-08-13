@@ -5,6 +5,7 @@ import storage from 'redux-persist/lib/storage'
 import profileReducer from './components/store/Profile/reducer'
 import chatsReducer from './components/store/Chat/reducer'
 import messagesReducer from './components/store/Message/reducer'
+import newsReducer from './components/store/News/reducer'
 
 const persistConfig = {
     key: 'root',
@@ -15,6 +16,7 @@ const rootReducer = combineReducers({
     profile: profileReducer,
     chats: chatsReducer,
     messages: messagesReducer,
+    news: newsReducer,
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
