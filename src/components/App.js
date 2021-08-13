@@ -9,6 +9,7 @@ function App() {
             <div className="header">
                 <Link to="/">Main</Link>
                 <Link to="/profile">Profile</Link>
+                <Link to="/news">News</Link>
             </div>
 
             <Router />
