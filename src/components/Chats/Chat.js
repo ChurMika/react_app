@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addMessage } from '../store/Message/actions'
 import { useIsChatExists } from '../../hooks/useIsChatExists'
 import { sendMessageToBot } from '../store/Message/actions'
+import firebase from 'firebase'
 
 const Chat = (props) => {
     const { chatId } = useParams()
@@ -15,6 +16,12 @@ const Chat = (props) => {
     const dispatch = useDispatch()
 
     const handleMessageSubmit = (newMessageText) => {
+        firebase.database().ref('messages').child(chatId).push({
+            id: `message${Date.now()}`,
+            author: AUTHORS.ME,
+            text: newMessageText,
+        })
+
         dispatch(
             sendMessageToBot(chatId, {
                 id: `message${Date.now()}`,

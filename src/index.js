@@ -6,6 +6,7 @@ import { Provider } from 'react-redux'
 import { persistor, store } from './store'
 import App from './components/App'
 import { PersistGate } from 'redux-persist/integration/react'
+import './components/services/firebase'
 
 ReactDOM.render(
     <React.StrictMode>
